@@ -1,15 +1,16 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, CalendarDays, Clock, Factory, MapPin, Phone, Send, Workflow } from 'lucide-react';
+import { ArrowDown, CalendarDays, Clock, Factory, MapPin, Send, Workflow } from 'lucide-react';
 import closedMachine from '../assets/hero/cnc-closed.png';
 import openMachine from '../assets/hero/cnc-open.png';
+import SmartCallLink from './SmartCallLink.jsx';
 import { companyData } from '../data/companyData.js';
 
 const heroDetails = [
-  { icon: CalendarDays, text: `Established ${companyData.establishedYear}` },
-  { icon: Clock, text: `Call Hours ${companyData.callHours}` },
-  { icon: MapPin, text: companyData.area },
-  { icon: Factory, text: 'CNC Machining & Job Work' },
+  { icon: CalendarDays, label: 'Established', value: companyData.establishedYear },
+  { icon: Clock, label: 'Call Hours', value: companyData.callHours },
+  { icon: MapPin, label: 'Area', value: companyData.area },
+  { icon: Factory, label: 'Work', value: 'CNC Machining & Job Work' },
 ];
 
 function Hero() {
@@ -78,28 +79,43 @@ function Hero() {
                 <Workflow size={18} aria-hidden="true" />
                 View Process
               </a>
-              <a
-                href="tel:+919080561615"
+              <SmartCallLink
+                phoneNumber={companyData.phoneNumbers[0]}
                 className="premium-button border border-line bg-ink/70 px-6 text-cream hover:border-copper hover:bg-elevated"
               >
-                <Phone size={18} aria-hidden="true" />
                 Call Now
-              </a>
+              </SmartCallLink>
             </div>
 
-            <div
-              className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-2 md:grid-cols-4"
+            <motion.div
+              className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.08, delayChildren: 0.18 } },
+              }}
             >
-              {heroDetails.map(({ icon: Icon, text }) => (
-                <div
-                  key={text}
-                  className="flex items-center justify-center gap-2 border border-copper/35 bg-ink/92 px-4 py-3 text-xs font-black text-cream shadow-premium backdrop-blur-xl md:text-sm"
+              {heroDetails.map(({ icon: Icon, label, value }) => (
+                <motion.div
+                  key={`${label}-${value}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 16 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+                  }}
+                  whileHover={{ y: -4, borderColor: 'rgba(242, 162, 13, 0.72)' }}
+                  className="flex min-h-24 items-center gap-4 rounded-md border border-copper/30 bg-ink/86 px-5 py-4 text-left shadow-premium backdrop-blur-xl"
                 >
-                  <Icon size={16} className="shrink-0 text-copper" aria-hidden="true" />
-                  <span>{text}</span>
-                </div>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-copper/30 bg-panel/80 text-copper">
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-xs font-bold uppercase text-muted">{label}</span>
+                    <span className="mt-1 block text-sm font-black leading-snug text-cream">{value}</span>
+                  </span>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           <motion.a

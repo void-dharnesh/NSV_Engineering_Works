@@ -19,7 +19,7 @@ export const companyData = {
   visitNote: 'Workshop visits may vary by day. Please call before visiting.',
   contactPerson: 'Diwakar S',
   role: 'Manager',
-  phoneNumbers: ['+91 9080561615', '+91 8973496858'],
+  phoneNumbers: ['+91 8973496858', '+91 9080561615'],
   services: [
     'Contract CNC Machining',
     'Cast Component Finishing',

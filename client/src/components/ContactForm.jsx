@@ -100,12 +100,15 @@ function ContactForm() {
             <div className="flex items-start gap-4 border-b border-line pb-4">
               <Phone size={21} className="mt-1 text-copper" aria-hidden="true" />
               <div>
-                <a className="block font-bold text-cream hover:text-gold" href="tel:+919080561615">
-                  +91 9080561615
-                </a>
-                <a className="mt-1 block font-bold text-cream hover:text-gold" href="tel:+918973496858">
-                  +91 8973496858
-                </a>
+                {companyData.phoneNumbers.map((phoneNumber, index) => (
+                  <a
+                    key={phoneNumber}
+                    className={`${index > 0 ? 'mt-1 ' : ''}block font-bold text-cream hover:text-gold`}
+                    href={`tel:${phoneNumber.replace(/[^\d+]/g, '')}`}
+                  >
+                    {phoneNumber}
+                  </a>
+                ))}
               </div>
             </div>
             <div className="flex items-start gap-4 border-b border-line pb-4">

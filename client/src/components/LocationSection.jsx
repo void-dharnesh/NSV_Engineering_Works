@@ -1,10 +1,14 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { ExternalLink, MapPin, MessageCircle } from 'lucide-react';
+import SmartCallLink from './SmartCallLink.jsx';
 import { companyData } from '../data/companyData.js';
 import { fadeUp } from '../utils/motion.js';
 
 const googleMapsUrl = companyData.googleMapsUrl;
-const whatsappUrl = `https://wa.me/919080561615?text=${encodeURIComponent(
+const primaryPhone = companyData.phoneNumbers[0];
+const secondaryPhone = companyData.phoneNumbers[1];
+const whatsappPhone = primaryPhone.replace(/\D/g, '');
+const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
   'Hello NSV Engineering Works, I would like to enquire about CNC machining or component finishing work.',
 )}`;
 
@@ -61,14 +65,12 @@ function LocationSection() {
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <a className="premium-button border border-copper bg-copper text-ink hover:border-gold hover:bg-gold" href="tel:+919080561615">
-              <Phone size={18} aria-hidden="true" />
-              Call +91 9080561615
-            </a>
-            <a className="premium-button border border-line bg-ink text-cream hover:border-copper hover:bg-elevated" href="tel:+918973496858">
-              <Phone size={18} aria-hidden="true" />
-              Call +91 8973496858
-            </a>
+            <SmartCallLink phoneNumber={primaryPhone} className="premium-button border border-copper bg-copper text-ink hover:border-gold hover:bg-gold">
+              Call {primaryPhone}
+            </SmartCallLink>
+            <SmartCallLink phoneNumber={secondaryPhone} className="premium-button border border-line bg-ink text-cream hover:border-copper hover:bg-elevated">
+              Call {secondaryPhone}
+            </SmartCallLink>
             <a className="premium-button border border-line bg-ink text-cream hover:border-copper hover:bg-elevated" href={whatsappUrl} target="_blank" rel="noreferrer">
               <MessageCircle size={18} aria-hidden="true" />
               WhatsApp Enquiry
