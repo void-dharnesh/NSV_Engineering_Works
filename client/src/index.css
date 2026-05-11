@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Plus Jakarta Sans", system-ui, sans-serif;
+  background: #202124;
+  color: #f5f2eb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    linear-gradient(180deg, rgba(26, 27, 31, 0.92), rgba(32, 33, 36, 1) 28%, rgba(26, 27, 31, 1) 100%);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(199, 122, 53, 0.42);
+  color: #f5f2eb;
+}
+
+.section-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.technical-grid {
+  background-image:
+    linear-gradient(rgba(245, 242, 235, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 242, 235, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(245, 242, 235, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 242, 235, 0.018) 1px, transparent 1px);
+  background-size: 72px 72px, 72px 72px, 18px 18px, 18px 18px;
+}
+
+.hero-vignette {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(245, 242, 235, 0.035), transparent 24%),
+    radial-gradient(circle at 50% 96%, rgba(199, 122, 53, 0.08), transparent 26%),
+    linear-gradient(180deg, rgba(26, 27, 31, 0.96), rgba(32, 33, 36, 0.94) 30%, rgba(32, 33, 36, 0.78) 58%, #202124 100%);
+}
+
+.hero-copy-shield {
+  background:
+    radial-gradient(ellipse at center, rgba(26, 27, 31, 0.94), rgba(26, 27, 31, 0.74) 48%, transparent 72%);
+}
+
+.hero-title-shadow {
+  text-shadow: 0 10px 44px rgba(0, 0, 0, 0.66);
+}
+
+.brand-tagline {
+  font-family: "Groningen", "HelveticaNeue-UltraLight", "Helvetica Neue", "Segoe UI Light", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  letter-spacing: 0.12em;
+  color: rgba(245, 242, 235, 0.74);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.form-field {
+  width: 100%;
+  border: 1px solid #3b3e45;
+  background: rgba(26, 27, 31, 0.74);
+  color: #f5f2eb;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.form-field:focus {
+  border-color: rgba(242, 157, 56, 0.75);
+  box-shadow: 0 0 0 3px rgba(199, 122, 53, 0.16);
+  background: rgba(42, 44, 49, 0.92);
+}
+
+.form-field::placeholder {
+  color: #8e8a83;
+}
+
+.premium-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 6px;
+  padding: 0.82rem 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.premium-button:hover {
+  transform: translateY(-1px);
+}
+
+.premium-button:focus-visible,
+.icon-button:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #f29d38;
+  outline-offset: 3px;
+}
+
+.icon-button {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #3b3e45;
+  color: #f5f2eb;
+  background: rgba(42, 44, 49, 0.68);
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.icon-button:hover {
+  border-color: rgba(199, 122, 53, 0.55);
+  color: #f29d38;
+  background: rgba(50, 53, 59, 0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

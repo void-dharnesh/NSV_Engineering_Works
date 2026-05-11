@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fynlo | From Chaos to Clarity</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-a" aria-hidden="true"></div>
+      <div class="ambient ambient-b" aria-hidden="true"></div>
+      <div class="ambient ambient-c" aria-hidden="true"></div>
+      <div class="ambient-lines" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">
+            <img class="brand-logo" src="assets/fynlo-logo.jpeg" alt="Fynlo logo" />
+          </div>
+          <div>
+            <p class="eyebrow">Life made intentional</p>
+            <h1>Fynlo</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="primary-button" id="focusBtn" type="button">Plan Intentionally</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel hero-panel" id="heroPanel">
+          <div class="hero-copy">
+            <p class="section-tag">Your life. Tracked. Beautifully.</p>
+            <h2>
+              From Chaos to
+              <span>Clarity</span>
+            </h2>
+
+            <div class="hero-metrics">
+              <article class="metric-card metric-card-focus">
+                <span>Focus timer</span>
+                <strong id="focusTimerHero">01:30:00</strong>
+                <p class="metric-note" id="focusTargetHero">Target: 90 minutes</p>
+                <div class="timer-actions timer-actions-hero">
+                  <button class="timer-button" data-timer-action="toggle" type="button">
+                    Start focus
+                  </button>
+                  <button
+                    class="timer-button timer-button-secondary"
+                    data-timer-action="reset"
+                    type="button"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </article>
+
+              <article class="metric-card metric-card-momentum">
+                <span>Today&apos;s rhythm</span>
+                <div class="metric-stat-line">
+                  <strong id="momentumWordHero">Good</strong>
+                  <small id="momentumLabelHero">Intentional momentum</small>
+                </div>
+                <div class="metric-progress" aria-hidden="true">
+                  <span id="momentumFillHero"></span>
+                </div>
+                <p class="metric-note" id="momentumNoteHero">
+                  Built from tasks, habits, goals, and wellbeing.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-orbit">
+            <div class="orbit-rings" aria-hidden="true">
+              <div class="ring ring-one"></div>
+              <div class="ring ring-two"></div>
+              <div class="ring ring-three"></div>
+            </div>
+
+            <button
+              class="orbit-icon module-button orbit-goals"
+              data-module="goals"
+              data-target="goalPanel"
+              type="button"
+            >
+              <span class="icon-badge goals-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="7.5"></circle>
+                  <circle cx="12" cy="12" r="3.5"></circle>
+                  <path d="M14 10l5-5"></path>
+                  <path d="M15 5h4v4"></path>
+                </svg>
+              </span>
+              <span>Goals</span>
+            </button>
+
+            <button
+              class="orbit-icon module-button orbit-habits"
+              data-module="habits"
+              data-target="habitPanel"
+              type="button"
+            >
+              <span class="icon-badge habits-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8"></circle>
+                  <path d="M8.5 12.3l2.2 2.2 4.8-5"></path>
+                </svg>
+              </span>
+              <span>Habits</span>
+            </button>
+
+            <button
+              class="orbit-icon module-button orbit-wellbeing"
+              data-module="wellbeing"
+              data-target="wellbeingPanel"
+              type="button"
+            >
+              <span class="icon-badge wellbeing-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 20s-6.2-3.5-8.3-7.2A5 5 0 0 1 12 6a5 5 0 0 1 8.3 6.8C18.2 16.5 12 20 12 20z"
+                  ></path>
+                </svg>
+              </span>
+              <span>Wellbeing</span>
+            </button>
+
+            <button
+              class="orbit-icon module-button orbit-insights"
+              data-module="insights"
+              data-target="insightsPanel"
+              type="button"
+            >
+              <span class="icon-badge insights-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 18V10"></path>
+                  <path d="M12 18V6"></path>
+                  <path d="M19 18v-8"></path>
+                </svg>
+              </span>
+              <span>Insights</span>
+            </button>
+
+            <article class="clarity-core" id="clarityCore">
+              <div class="brand-mark brand-mark-large" aria-hidden="true">
+                <img class="brand-logo brand-logo-large" src="assets/fynlo-logo.jpeg" alt="" />
+              </div>
+              <p class="section-tag" id="coreOverline">Clarity score</p>
+              <strong id="coreValue">84</strong>
+              <span class="core-title" id="coreTitle">Intentional momentum</span>
+              <small class="core-hint" id="coreHint">Tap a module to jump to its stats.</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="feature-band" id="summaryCards">
+          <button
+            class="summary-card module-card"
+            data-module="goals"
+            data-target="goalPanel"
+            type="button"
+          >
+            <span class="summary-icon goals-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="7.5"></circle>
+                <circle cx="12" cy="12" r="3.5"></circle>
+                <path d="M14 10l5-5"></path>
+                <path d="M15 5h4v4"></path>
+              </svg>
+            </span>
+            <span>Goals</span>
+            <strong id="goalSummary">3 active</strong>
+            <small>Move your biggest outcomes forward.</small>
+          </button>
+
+          <button
+            class="summary-card module-card"
+            data-module="habits"
+            data-target="habitPanel"
+            type="button"
+          >
+            <span class="summary-icon habits-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M8.5 12.3l2.2 2.2 4.8-5"></path>
+              </svg>
+            </span>
+            <span>Habits</span>
+            <strong id="habitSummary">2 completed</strong>
+            <small>Stay consistent with the routines that matter.</small>
+          </button>
+
+          <button
+            class="summary-card module-card"
+            data-module="clarity"
+            data-target="insightsPanel"
+            type="button"
+          >
+            <span class="summary-icon progress-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 16l4-4 4 2 6-7"></path>
+                <path d="M15 7h4v4"></path>
+              </svg>
+            </span>
+            <span>Progress</span>
+            <strong id="progressSummary">84% clarity</strong>
+            <small>See your energy and execution in one score.</small>
+          </button>
+
+          <button
+            class="summary-card module-card"
+            data-module="tasks"
+            data-target="plannerPanel"
+            type="button"
+          >
+            <span class="summary-icon tasks-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="6" width="14" height="13" rx="2"></rect>
+                <path d="M8 4v4"></path>
+                <path d="M16 4v4"></path>
+                <path d="M8 12h3"></path>
+                <path d="M8 15h6"></path>
+              </svg>
+            </span>
+            <span>Tasks</span>
+            <strong id="taskSummary">2 remaining</strong>
+            <small>Reduce the mental clutter of an overfull day.</small>
+          </button>
+
+          <button
+            class="summary-card module-card"
+            data-module="wellbeing"
+            data-target="wellbeingPanel"
+            type="button"
+          >
+            <span class="summary-icon wellbeing-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 20s-6.2-3.5-8.3-7.2A5 5 0 0 1 12 6a5 5 0 0 1 8.3 6.8C18.2 16.5 12 20 12 20z"
+                ></path>
+              </svg>
+            </span>
+            <span>Wellbeing</span>
+            <strong id="wellbeingSummary">Calm focus</strong>
+            <small>Check how your body and mind are doing today.</small>
+          </button>
+        </section>
+
+        <section class="panel insight-spotlight" id="insightSpotlight">
+          <div class="spotlight-copy">
+            <p class="section-tag">Insight studio</p>
+            <h3>Weekly report</h3>
+            <p class="spotlight-lead">
+              A dedicated space for the patterns, streaks, and clarity shifts shaping your week.
+            </p>
+            <button
+              class="secondary-button module-button module-cta"
+              data-module="insights"
+              data-target="insightsPanel"
+              type="button"
+            >
+              Open weekly insights
+            </button>
+          </div>
+
+          <div class="spotlight-visual">
+            <article class="spotlight-card">
+              <span>Average clarity</span>
+              <strong id="weeklyAverageSpotlight">76%</strong>
+              <small id="insightPreviewSpotlight">Protect your first focused hour.</small>
+            </article>
+            <div class="spotlight-bars" id="insightSpotlightBars" aria-label="Weekly insight bars"></div>
+          </div>
+        </section>
+
+        <section class="panel planner-panel" id="plannerPanel">
+          <div class="section-heading">
+            <div>
+              <p class="section-tag">Take control of your time</p>
+              <h3>Today&apos;s focus plan</h3>
+            </div>
+            <span class="pill" id="taskPill">2 remaining</span>
+          </div>
+
+          <div class="planner-grid">
+            <div class="planner-main">
+              <form class="task-composer" id="taskComposer">
+                <label class="input-shell">
+                  <span>Task</span>
+                  <input id="taskTitle" type="text" placeholder="Add a calm, concrete next step" />
+                </label>
+                <label class="input-shell input-shell-small">
+                  <span>When</span>
+                  <input id="taskTime" type="text" placeholder="2:30 PM" />
+                </label>
+                <button class="primary-button" id="addTaskButton" type="submit">Add task</button>
+              </form>
+
+              <div class="task-list" id="taskList" aria-live="polite"></div>
+            </div>
+
+            <aside class="planner-companion">
+              <p class="field-label">Calm companion</p>
+              <div class="companion-stage" aria-hidden="true">
+                <div class="companion-orbit companion-orbit-a"></div>
+                <div class="companion-orbit companion-orbit-b"></div>
+                <div class="companion-spark spark-a"></div>
+                <div class="companion-spark spark-b"></div>
+                <div class="companion-spark spark-c"></div>
+                <div class="companion-character">
+                  <div class="companion-head">
+                    <span class="companion-eye"></span>
+                    <span class="companion-eye"></span>
+                    <span class="companion-smile"></span>
+                  </div>
+                  <div class="companion-body">
+                    <span class="companion-arm arm-left"></span>
+                    <span class="companion-arm arm-right"></span>
+                    <span class="companion-leg leg-left"></span>
+                    <span class="companion-leg leg-right"></span>
+                  </div>
+                  <div class="companion-clipboard">
+                    <span class="clip-top"></span>
+                    <span class="clip-line line-one"></span>
+                    <span class="clip-line line-two"></span>
+                    <span class="clip-check"></span>
+                  </div>
+                </div>
+                <div class="companion-shadow"></div>
+              </div>
+              <div class="companion-copy">
+                <strong id="companionTitle">Focus buddy is planning quietly.</strong>
+                <p id="companionText">
+                  A calm little helper stays in the panel so the extra space feels intentional,
+                  not empty.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel habit-panel" id="habitPanel">
+          <div class="section-heading">
+            <div>
+              <p class="section-tag">Consistency</p>
+              <h3>Daily habits</h3>
+            </div>
+            <span class="pill" id="habitPill">2 complete</span>
+          </div>
+
+          <div class="habit-list" id="habitList"></div>
+        </section>
+
+        <section class="panel goal-panel" id="goalPanel">
+          <div class="section-heading">
+            <div>
+              <p class="section-tag">Long-term clarity</p>
+              <h3>Goals in motion</h3>
+            </div>
+            <span class="pill" id="goalPill">3 active</span>
+          </div>
+
+          <div class="goal-list" id="goalList"></div>
+        </section>
+
+        <section class="panel wellbeing-panel" id="wellbeingPanel">
+          <div class="section-heading">
+            <div>
+              <p class="section-tag">Feel the rhythm</p>
+              <h3>Wellbeing check-in</h3>
+            </div>
+            <span class="pill" id="moodPill">Calm focus</span>
+          </div>
+
+          <div class="wellbeing-grid">
+            <div class="wellbeing-block wellbeing-mood-block">
+              <p class="field-label">How do you feel?</p>
+              <div class="mood-list" id="moodList"></div>
+            </div>
+
+            <div class="wellbeing-block wellbeing-timer-block" id="focusStats">
+              <div class="range-header">
+                <p class="field-label">Deep work timer</p>
+                <strong id="focusMinutes">90 min</strong>
+              </div>
+              <div class="timer-readout" id="focusTimerPanel">01:30:00</div>
+              <div class="timer-actions timer-actions-panel">
+                <button class="timer-button" data-timer-action="toggle" type="button">
+                  Start focus
+                </button>
+                <button
+                  class="timer-button timer-button-secondary"
+                  data-timer-action="reset"
+                  type="button"
+                >
+                  Reset
+                </button>
+              </div>
+              <input id="focusRange" type="range" min="15" max="180" step="15" value="90" />
+              <p class="timer-caption">Choose a focus target, then start the timer when you&apos;re ready.</p>
+            </div>
+
+            <div class="wellbeing-block wellbeing-overview">
+              <div class="wellbeing-overview-grid">
+                <article class="wellbeing-stat">
+                  <span>Energy</span>
+                  <strong id="energyLevel">Steady</strong>
+                  <small id="energyNote">Your pace matches a calm, sustainable day.</small>
+                </article>
+
+                <article class="wellbeing-stat">
+                  <span>Recovery</span>
+                  <strong id="recoveryLevel">Balanced</strong>
+                  <small id="recoveryNote">You still have space for one meaningful reset.</small>
+                </article>
+
+                <article class="wellbeing-stat wellbeing-stat-wide">
+                  <span>Support cue</span>
+                  <strong id="wellbeingGuide">Protect one quiet hour.</strong>
+                  <small id="wellbeingGuideNote">
+                    Fynlo suggests a lighter, more intentional rhythm when your mind feels crowded.
+                  </small>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel insights-panel" id="insightsPanel">
+          <div class="section-heading">
+            <div>
+              <p class="section-tag">Insights</p>
+              <h3>Your weekly pattern</h3>
+            </div>
+            <span class="pill">Use Fynlo, live with intentions.</span>
+          </div>
+
+          <div class="insight-summary">
+            <article class="insight-tile">
+              <span>Completion rate</span>
+              <strong id="completionRate">72%</strong>
+            </article>
+            <article class="insight-tile">
+              <span>Habit score</span>
+              <strong id="habitRate">67%</strong>
+            </article>
+            <article class="insight-tile">
+              <span>Guidance</span>
+              <strong id="insightHeadline">Protect your first two focused hours.</strong>
+            </article>
+          </div>
+
+          <div class="weekly-chart" id="weeklyChart" aria-label="Weekly clarity chart"></div>
+
+          <div class="insight-note" id="insightNote">
+            You do your best work when the day starts with one clear priority.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
