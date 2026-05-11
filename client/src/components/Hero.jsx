@@ -1,17 +1,10 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, CalendarDays, Clock, Factory, MapPin, Send, Workflow } from 'lucide-react';
+import { ArrowDown, Send, Workflow } from 'lucide-react';
 import closedMachine from '../assets/hero/cnc-closed.png';
 import openMachine from '../assets/hero/cnc-open.png';
 import SmartCallLink from './SmartCallLink.jsx';
 import { companyData } from '../data/companyData.js';
-
-const heroDetails = [
-  { icon: CalendarDays, label: 'Established', value: companyData.establishedYear },
-  { icon: Clock, label: 'Call Hours', value: companyData.callHours },
-  { icon: MapPin, label: 'Area', value: companyData.area },
-  { icon: Factory, label: 'Work', value: 'CNC Machining & Job Work' },
-];
 
 function Hero() {
   const heroRef = useRef(null);
@@ -47,7 +40,7 @@ function Hero() {
             <p
               className="mb-5 text-sm font-bold uppercase text-copper md:text-base"
             >
-              Precision engineering job work
+              CNC machining and industrial job work
             </p>
 
             <h1
@@ -57,13 +50,13 @@ function Hero() {
             </h1>
 
             <p
-              className="brand-tagline hero-title-shadow mx-auto mt-5 whitespace-nowrap text-[clamp(1.05rem,3.1vw,2.7rem)] leading-none"
+              className="brand-tagline hero-title-shadow mx-auto mt-10 whitespace-nowrap text-[clamp(1.05rem,3.1vw,2.7rem)] leading-none"
             >
               {companyData.tagline.toUpperCase()}
             </p>
 
             <div
-              className="mt-8 flex flex-wrap items-center justify-center gap-3"
+              className="mt-10 flex flex-wrap items-center justify-center gap-3"
             >
               <a
                 href="#contact"
@@ -86,36 +79,6 @@ function Hero() {
                 Call Now
               </SmartCallLink>
             </div>
-
-            <motion.div
-              className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.08, delayChildren: 0.18 } },
-              }}
-            >
-              {heroDetails.map(({ icon: Icon, label, value }) => (
-                <motion.div
-                  key={`${label}-${value}`}
-                  variants={{
-                    hidden: { opacity: 0, y: 16 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
-                  }}
-                  whileHover={{ y: -4, borderColor: 'rgba(242, 162, 13, 0.72)' }}
-                  className="flex min-h-24 items-center gap-4 rounded-md border border-copper/30 bg-ink/86 px-5 py-4 text-left shadow-premium backdrop-blur-xl"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-copper/30 bg-panel/80 text-copper">
-                    <Icon size={18} aria-hidden="true" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-xs font-bold uppercase text-muted">{label}</span>
-                    <span className="mt-1 block text-sm font-black leading-snug text-cream">{value}</span>
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
           </div>
 
           <motion.a

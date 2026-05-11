@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, Phone, X } from 'lucide-react';
 import logo from '../assets/logo/nsv-logo-uploaded-cropped.png';
@@ -8,6 +8,8 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const pendingSectionRef = useRef('');
+  const pendingTimerRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 18);
@@ -20,6 +22,15 @@ function Navbar() {
     let frameId = 0;
 
     const updateActiveSection = () => {
+      if (pendingSectionRef.current) {
+        const pendingSection = document.getElementById(pendingSectionRef.current);
+        if (pendingSection && Math.abs(pendingSection.getBoundingClientRect().top - 88) < 18) {
+          pendingSectionRef.current = '';
+        } else {
+          return;
+        }
+      }
+
       const scrollPosition = window.scrollY + 132;
       const sections = navLinks
         .map((link) => document.querySelector(link.href))
@@ -47,6 +58,7 @@ function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
     return () => {
+      window.clearTimeout(pendingTimerRef.current);
       window.cancelAnimationFrame(frameId);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
@@ -57,12 +69,17 @@ function Navbar() {
     event?.preventDefault();
     const sectionId = href.slice(1);
     const section = document.getElementById(sectionId);
+    pendingSectionRef.current = sectionId;
+    window.clearTimeout(pendingTimerRef.current);
     setActiveSection(sectionId);
     setIsOpen(false);
     if (section) {
       const top = section.offsetTop - 88;
       window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
       window.history.replaceState(null, '', href);
+      pendingTimerRef.current = window.setTimeout(() => {
+        pendingSectionRef.current = '';
+      }, 1200);
     }
   };
 
