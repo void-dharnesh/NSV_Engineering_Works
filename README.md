@@ -60,8 +60,80 @@ POST /api/enquiry
 Enquiries are saved to:
 
 ```text
+Supabase table: public.enquiries
+```
+
+For local development without Supabase env vars, the API falls back to:
+
+```text
 server/enquiries.json
 ```
+
+## Supabase Enquiry Storage
+
+Create the enquiries table by applying:
+
+```text
+supabase/migrations/20260512002500_create_enquiries_table.sql
+```
+
+The table stores every contact form input:
+
+```text
+id, submitted_at, full_name, phone, email, requirement_type, message
+```
+
+Configure the backend with `server/.env`:
+
+```env
+PORT=5000
+CLIENT_ORIGIN=http://127.0.0.1:5173
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_ENQUIRIES_TABLE=enquiries
+```
+
+Use the service role key only on the backend. Do not expose it through Vite or client-side code.
+
+## Deploy to Vercel
+
+This repository includes `vercel.json` for direct deployment from the repo root:
+
+```text
+Install Command: cd client && npm install
+Build Command: cd client && npm run build
+Output Directory: client/dist
+```
+
+The contact form posts to:
+
+```text
+/api/enquiry
+```
+
+on Vercel, so it uses the serverless function in:
+
+```text
+api/enquiry.js
+```
+
+Add these as Vercel Environment Variables for Production, Preview, and Development as needed:
+
+```env
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_ENQUIRIES_TABLE=enquiries
+```
+
+Do not add `SUPABASE_SERVICE_ROLE_KEY` to any `VITE_` variable. `VITE_` variables are bundled into browser code. The service role key must stay server-side only.
+
+For local Vite development, `VITE_API_URL` can point at the local Express API:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Do not set `VITE_API_URL` on Vercel unless the API is hosted on a separate backend.
 
 ## Run the Frontend
 

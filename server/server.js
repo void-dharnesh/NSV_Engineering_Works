@@ -1,14 +1,42 @@
 import express from 'express';
 import cors from 'cors';
-import { promises as fs } from 'fs';
+import { existsSync, promises as fs, readFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const enquiriesFile = path.join(__dirname, 'enquiries.json');
+
+function loadLocalEnv() {
+  const envFile = path.join(__dirname, '.env');
+  if (!existsSync(envFile)) return;
+
+  const lines = readFileSync(envFile, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+
+    const separatorIndex = trimmed.indexOf('=');
+    if (separatorIndex === -1) continue;
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    const rawValue = trimmed.slice(separatorIndex + 1).trim();
+    const value = rawValue.replace(/^['"]|['"]$/g, '');
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadLocalEnv();
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseEnquiriesTable = process.env.SUPABASE_ENQUIRIES_TABLE || 'enquiries';
+const hasSupabaseConfig = Boolean(supabaseUrl && supabaseServiceRoleKey);
 
 const allowedRequirementTypes = new Set([
   'CNC Machining',
@@ -70,20 +98,56 @@ async function readEnquiries() {
 }
 
 async function saveEnquiry(enquiry) {
-  const enquiries = await readEnquiries();
   const savedEnquiry = {
     id: `enq_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
     submittedAt: new Date().toISOString(),
     ...enquiry,
   };
 
+  if (hasSupabaseConfig) {
+    await saveEnquiryToSupabase(savedEnquiry);
+    return savedEnquiry;
+  }
+
+  const enquiries = await readEnquiries();
   enquiries.unshift(savedEnquiry);
   await fs.writeFile(enquiriesFile, `${JSON.stringify(enquiries, null, 2)}\n`);
   return savedEnquiry;
 }
 
+async function saveEnquiryToSupabase(enquiry) {
+  const endpoint = new URL(`/rest/v1/${supabaseEnquiriesTable}`, supabaseUrl);
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      apikey: supabaseServiceRoleKey,
+      Authorization: `Bearer ${supabaseServiceRoleKey}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify({
+      id: enquiry.id,
+      submitted_at: enquiry.submittedAt,
+      full_name: enquiry.fullName,
+      phone: enquiry.phone,
+      email: enquiry.email || null,
+      requirement_type: enquiry.requirementType,
+      message: enquiry.message,
+    }),
+  });
+
+  if (!response.ok) {
+    const details = await response.text();
+    throw new Error(`Supabase enquiry insert failed: ${response.status} ${details}`);
+  }
+}
+
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', service: 'NSV Engineering Works enquiry API' });
+  res.json({
+    status: 'ok',
+    service: 'NSV Engineering Works enquiry API',
+    storage: hasSupabaseConfig ? 'supabase' : 'local-json',
+  });
 });
 
 app.post('/api/enquiry', async (req, res) => {

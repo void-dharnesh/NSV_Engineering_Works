@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vercel/
+
+.env
+.env.*
+!.env.example
+
+*.log
+*-localhost.log
+*-localhost.err.log
+npm-debug.log*
+
+server/enquiries.json
+client/node_modules/.vite/
